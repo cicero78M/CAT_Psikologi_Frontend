@@ -13,7 +13,7 @@ npm start
 
 The app will serve static files from the `public` folder on port `8080` by default.
 
-Ensure the backend is running on `http://localhost:3000` or adjust the `API_URL` in `public/app.js`.
+Ensure the backend is running (default `http://localhost:3000`) or set the environment variable `API_URL` when starting the server to point the frontend at a different backend.
 
 The profile page allows users to edit their name, institution, role and upload a photo. Administrators can manage user roles from the **Pengguna** section.
 
@@ -30,5 +30,5 @@ Available operations:
 - `DELETE /api/questions/:id` – remove a question
 
 This allows populating a small bank of questions without running the separate backend.
-The app serves static files from the `public` folder on port `8080` by default. Ensure the backend is available on `http://localhost:3000` or update `API_URL` in `public/app.js`.
+The app serves static files from the `public` folder on port `8080` by default. To connect to another backend set the `API_URL` environment variable before running `npm start`.
 

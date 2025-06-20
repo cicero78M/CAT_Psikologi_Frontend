@@ -6,6 +6,13 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const API_URL = process.env.API_URL || 'http://localhost:3000/api';
+
+app.get('/config.js', (req, res) => {
+  res.type('application/javascript');
+  res.send(`window.API_URL = '${API_URL}';`);
+});
+
 const DATA_FILE = path.join(__dirname, 'data', 'questions.json');
 
 function loadQuestions() {

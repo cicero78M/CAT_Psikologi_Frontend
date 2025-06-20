@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = window.API_URL || 'http://localhost:3000/api';
 let token = localStorage.getItem('token');
 
 function showMain() {
