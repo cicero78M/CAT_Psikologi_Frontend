@@ -4,11 +4,18 @@ let token = localStorage.getItem('token');
 function showMain() {
   document.getElementById('auth').classList.add('hidden');
   document.getElementById('main').classList.remove('hidden');
+  showSection('profileSection');
 }
 
 function showAuth() {
   document.getElementById('auth').classList.remove('hidden');
   document.getElementById('main').classList.add('hidden');
+}
+
+function showSection(id) {
+  document.querySelectorAll('#main section').forEach(sec => sec.classList.add('hidden'));
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('hidden');
 }
 
 function register() {
@@ -18,7 +25,7 @@ function register() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
-  }).then(r => r.json()).then(data => {
+  }).then(r => r.json()).then(() => {
     alert('Registered');
   }).catch(err => alert('Error: ' + err.message));
 }
@@ -45,6 +52,30 @@ function logout() {
   localStorage.removeItem('token');
   token = null;
   showAuth();
+}
+
+function resetPassword() {
+  const email = document.getElementById('resetEmail').value;
+  fetch(`${API_URL}/auth/reset-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  }).then(() => alert('Reset link sent')).catch(err => alert('Error: ' + err.message));
+}
+
+function updateProfile() {
+  const name = document.getElementById('profileName').value;
+  const institution = document.getElementById('profileInstitution').value;
+  const photo = document.getElementById('profilePhoto').files[0];
+  const form = new FormData();
+  form.append('name', name);
+  form.append('institution', institution);
+  if (photo) form.append('photo', photo);
+  fetch(`${API_URL}/profile`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}` },
+    body: form
+  }).then(() => alert('Profile updated')).catch(err => alert('Error: ' + err.message));
 }
 
 function loadUsers() {
@@ -77,18 +108,58 @@ function loadQuestions() {
 
 function createQuestion() {
   const text = document.getElementById('questionText').value;
+  const category = document.getElementById('questionCategory').value;
+  const level = document.getElementById('questionLevel').value;
   fetch(`${API_URL}/questions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify({ text })
-  }).then(r => r.json()).then(data => {
+    body: JSON.stringify({ text, category, level })
+  }).then(r => r.json()).then(() => {
     alert('Question created');
     loadQuestions();
   }).catch(err => alert('Error: ' + err.message));
 }
+
+function importQuestions() {
+  const file = document.getElementById('importFile').files[0];
+  if (!file) return alert('Select a file');
+  const form = new FormData();
+  form.append('file', file);
+  fetch(`${API_URL}/questions/import`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}` },
+    body: form
+  }).then(() => alert('Imported')).catch(err => alert('Error: ' + err.message));
+}
+
+function exportQuestions() {
+  fetch(`${API_URL}/questions/export`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  }).then(r => r.blob()).then(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'questions.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }).catch(err => alert('Error: ' + err.message));
+}
+
+// Adaptive test placeholders
+function startTest() {
+  document.getElementById('testArea').classList.remove('hidden');
+}
+function prevQuestion() { alert('Prev question'); }
+function nextQuestion() { alert('Next question'); }
+
+function loadResults() { alert('Load results'); }
+function createClass() { alert('Create class'); }
+function copyInviteLink() { alert('Invite link copied'); }
+function scheduleExam() { alert('Exam scheduled'); }
+function loadDashboard() { alert('Load dashboard'); }
 
 if (token) {
   showMain();
