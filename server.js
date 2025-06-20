@@ -1,9 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const cors = require('cors');
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const API_URL = process.env.API_URL || 'http://localhost:3000/api';
@@ -13,7 +16,7 @@ app.get('/config.js', (req, res) => {
   res.send(`window.API_URL = '${API_URL}';`);
 });
 
-const DATA_FILE = path.join(__dirname, 'data', 'questions.json');
+const DATA_FILE = process.env.DATA_FILE || path.join(__dirname, 'data', 'questions.json');
 
 function loadQuestions() {
   try {
@@ -69,6 +72,10 @@ app.delete('/api/questions/:id', (req, res) => {
   const removed = questions.splice(index, 1)[0];
   saveQuestions(questions);
   res.json(removed);
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 8080;
