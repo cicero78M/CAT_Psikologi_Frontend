@@ -6,9 +6,11 @@
   <title>CAT Psikologi Frontend</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
+    nav button { margin-right: 5px; }
     #auth, #main { margin-bottom: 20px; }
-    input, button { margin: 5px 0; }
+    input, button, textarea { margin: 5px 0; }
     .hidden { display: none; }
+    section { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -28,18 +30,80 @@
 
   <div id="main" class="hidden">
     <button onclick="logout()">Logout</button>
+    <nav>
+      <button onclick="showSection('profileSection')">Profil</button>
+      <button onclick="showSection('bankSection')">Bank Soal</button>
+      <button onclick="showSection('testSection')">Ujian</button>
+      <button onclick="showSection('resultSection')">Hasil</button>
+      <button onclick="showSection('classSection')">Kelas</button>
+      <button onclick="showSection('dashboardSection')">Dashboard</button>
+    </nav>
 
-    <h2>Users</h2>
-    <button onclick="loadUsers()">Load Users</button>
-    <ul id="userList"></ul>
+    <section id="profileSection" class="hidden">
+      <h2>Profil Pengguna</h2>
+      <input type="text" id="profileName" placeholder="Nama"><br>
+      <input type="text" id="profileInstitution" placeholder="Institusi"><br>
+      <input type="file" id="profilePhoto"><br>
+      <button onclick="updateProfile()">Simpan Profil</button>
+      <h3>Reset Password</h3>
+      <input type="email" id="resetEmail" placeholder="Email"><br>
+      <button onclick="resetPassword()">Kirim Link Reset</button>
+    </section>
 
-    <h2>Questions</h2>
-    <button onclick="loadQuestions()">Load Questions</button>
-    <ul id="questionList"></ul>
+    <section id="bankSection" class="hidden">
+      <h2>Bank Soal</h2>
+      <button onclick="loadQuestions()">Muat Soal</button>
+      <ul id="questionList"></ul>
+      <h3>Buat Soal</h3>
+      <input type="text" id="questionCategory" placeholder="Kategori"><br>
+      <input type="text" id="questionLevel" placeholder="Tingkat Kesulitan"><br>
+      <textarea id="questionText" rows="3" cols="40" placeholder="Teks soal"></textarea><br>
+      <button onclick="createQuestion()">Simpan</button>
+      <h3>Import / Export</h3>
+      <input type="file" id="importFile"><br>
+      <button onclick="importQuestions()">Import</button>
+      <button onclick="exportQuestions()">Export</button>
+    </section>
 
-    <h3>Create Question</h3>
-    <textarea id="questionText" rows="3" cols="40" placeholder="Question text"></textarea><br>
-    <button onclick="createQuestion()">Create</button>
+    <section id="testSection" class="hidden">
+      <h2>Ujian Adaptif</h2>
+      <button onclick="startTest()">Mulai Ujian</button>
+      <div id="testArea" class="hidden">
+        <p id="testIntro">Ujian menggunakan algoritma IRT.</p>
+        <div id="timer">00:00</div>
+        <div id="progress">0%</div>
+        <div id="questionContainer"></div>
+        <button onclick="prevQuestion()">Sebelumnya</button>
+        <button onclick="nextQuestion()">Berikutnya</button>
+      </div>
+    </section>
+
+    <section id="resultSection" class="hidden">
+      <h2>Hasil & Analitik</h2>
+      <button onclick="loadResults()">Muat Hasil</button>
+      <ul id="resultList"></ul>
+      <div id="recommendation"></div>
+    </section>
+
+    <section id="classSection" class="hidden">
+      <h2>Manajemen Kelas</h2>
+      <input type="text" id="className" placeholder="Nama Kelas"><br>
+      <button onclick="createClass()">Buat Kelas</button>
+      <h3>Undang Peserta</h3>
+      <input type="text" id="inviteCode" placeholder="Kode Undangan"><br>
+      <button onclick="copyInviteLink()">Salin Link</button>
+      <h3>Jadwal Ujian</h3>
+      <input type="datetime-local" id="examStart"><br>
+      <input type="number" id="examDuration" placeholder="Durasi (menit)"><br>
+      <button onclick="scheduleExam()">Simpan Jadwal</button>
+    </section>
+
+    <section id="dashboardSection" class="hidden">
+      <h2>Dashboard Admin</h2>
+      <button onclick="loadDashboard()">Segarkan</button>
+      <div id="summary"></div>
+      <div id="notifications"></div>
+    </section>
   </div>
 
   <script src="app.js"></script>
