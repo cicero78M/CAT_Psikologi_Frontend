@@ -4,7 +4,9 @@ This project provides a very small web interface for the [CAT Psikologi Backend]
 
 ## Setup
 
-Install dependencies and run the development server:
+This project requires **Node.js 18** or newer.
+
+Install dependencies and run the development server. Copy `.env.example` to `.env` and adjust the variables if needed:
 
 ```bash
 npm install
