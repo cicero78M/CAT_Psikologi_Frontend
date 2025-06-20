@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAT Psikologi Frontend</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #auth, #main { margin-bottom: 20px; }
+    input, button { margin: 5px 0; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>CAT Psikologi Frontend</h1>
+
+  <div id="auth">
+    <h2>Register</h2>
+    <input type="email" id="regEmail" placeholder="Email"><br>
+    <input type="password" id="regPassword" placeholder="Password"><br>
+    <button onclick="register()">Register</button>
+
+    <h2>Login</h2>
+    <input type="email" id="logEmail" placeholder="Email"><br>
+    <input type="password" id="logPassword" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div id="main" class="hidden">
+    <button onclick="logout()">Logout</button>
+
+    <h2>Users</h2>
+    <button onclick="loadUsers()">Load Users</button>
+    <ul id="userList"></ul>
+
+    <h2>Questions</h2>
+    <button onclick="loadQuestions()">Load Questions</button>
+    <ul id="questionList"></ul>
+
+    <h3>Create Question</h3>
+    <textarea id="questionText" rows="3" cols="40" placeholder="Question text"></textarea><br>
+    <button onclick="createQuestion()">Create</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
