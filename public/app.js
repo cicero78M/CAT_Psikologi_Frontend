@@ -5,6 +5,7 @@ function showMain() {
   document.getElementById('auth').classList.add('hidden');
   document.getElementById('main').classList.remove('hidden');
   showSection('profileSection');
+  loadProfile();
 }
 
 function showAuth() {
@@ -63,13 +64,27 @@ function resetPassword() {
   }).then(() => alert('Reset link sent')).catch(err => alert('Error: ' + err.message));
 }
 
+function loadProfile() {
+  fetch(`${API_URL}/profile`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  }).then(r => r.json()).then(data => {
+    document.getElementById('profileName').value = data.name || '';
+    document.getElementById('profileInstitution').value = data.institution || '';
+    if (data.role) {
+      document.getElementById('profileRole').value = data.role;
+    }
+  }).catch(() => {});
+}
+
 function updateProfile() {
   const name = document.getElementById('profileName').value;
   const institution = document.getElementById('profileInstitution').value;
+  const role = document.getElementById('profileRole').value;
   const photo = document.getElementById('profilePhoto').files[0];
   const form = new FormData();
   form.append('name', name);
   form.append('institution', institution);
+  form.append('role', role);
   if (photo) form.append('photo', photo);
   fetch(`${API_URL}/profile`, {
     method: 'POST',
@@ -86,10 +101,27 @@ function loadUsers() {
     list.innerHTML = '';
     data.forEach(u => {
       const li = document.createElement('li');
-      li.textContent = `ID: ${u.id || ''} Email: ${u.email || ''}`;
+      li.innerHTML = `ID: ${u.id || ''} Email: ${u.email || ''} ` +
+        `<select id="role-${u.id}">` +
+        `<option value="user" ${u.role === 'user' ? 'selected' : ''}>User</option>` +
+        `<option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>` +
+        `</select>` +
+        ` <button onclick="updateUserRole(${u.id})">Simpan</button>`;
       list.appendChild(li);
     });
   }).catch(err => alert('Error: ' + err.message));
+}
+
+function updateUserRole(id) {
+  const role = document.getElementById(`role-${id}`).value;
+  fetch(`${API_URL}/users/${id}/role`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ role })
+  }).then(() => loadUsers()).catch(err => alert('Error: ' + err.message));
 }
 
 function loadQuestions() {

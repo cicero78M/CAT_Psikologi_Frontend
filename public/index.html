@@ -37,12 +37,17 @@
       <button onclick="showSection('resultSection')">Hasil</button>
       <button onclick="showSection('classSection')">Kelas</button>
       <button onclick="showSection('dashboardSection')">Dashboard</button>
+      <button onclick="showSection('usersSection')">Pengguna</button>
     </nav>
 
     <section id="profileSection" class="hidden">
       <h2>Profil Pengguna</h2>
       <input type="text" id="profileName" placeholder="Nama"><br>
       <input type="text" id="profileInstitution" placeholder="Institusi"><br>
+      <select id="profileRole">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select><br>
       <input type="file" id="profilePhoto"><br>
       <button onclick="updateProfile()">Simpan Profil</button>
       <h3>Reset Password</h3>
@@ -103,6 +108,12 @@
       <button onclick="loadDashboard()">Segarkan</button>
       <div id="summary"></div>
       <div id="notifications"></div>
+    </section>
+
+    <section id="usersSection" class="hidden">
+      <h2>Manajemen Pengguna</h2>
+      <button onclick="loadUsers()">Muat Pengguna</button>
+      <ul id="userList"></ul>
     </section>
   </div>
 
