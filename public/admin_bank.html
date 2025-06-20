@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Bank Soal</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    input, button, textarea { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h1>Halaman Admin - Bank Soal</h1>
+
+  <section id="bankSection">
+    <h2>Manajemen Soal</h2>
+    <button onclick="loadQuestions()">Muat Soal</button>
+    <ul id="questionList"></ul>
+    <h3>Buat Soal Baru</h3>
+    <input type="text" id="questionCategory" placeholder="Kategori"><br>
+    <input type="text" id="questionLevel" placeholder="Tingkat Kesulitan"><br>
+    <textarea id="questionText" rows="3" cols="40" placeholder="Teks soal"></textarea><br>
+    <button onclick="createQuestion()">Simpan</button>
+    <h3>Import / Export</h3>
+    <input type="file" id="importFile"><br>
+    <button onclick="importQuestions()">Import</button>
+    <button onclick="exportQuestions()">Export</button>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
