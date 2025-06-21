@@ -22,67 +22,61 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h1 className="text-center text-3xl font-extrabold text-gray-900">CAT Psikologi</h1>
-          <p className="text-center text-sm text-gray-500">Supported by Cicero Devs</p>
-          <h2 className="mt-6 text-center text-2xl font-bold text-gray-700">Masuk ke akun Anda</h2>
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content flex-col w-full max-w-md">
+        <div className="text-center mb-4">
+          <h1 className="text-3xl font-bold">CAT Psikologi</h1>
+          <p className="text-sm text-gray-500">Supported by Cicero Devs</p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={login}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email" className="sr-only">Email</label>
+        <div className="card w-full shadow-2xl bg-base-100">
+          <form className="card-body" onSubmit={login}>
+            <h2 className="text-center text-2xl font-semibold">Masuk ke akun Anda</h2>
+            <div className="form-control">
+              <label className="label" htmlFor="email">
+                <span className="label-text">Email</span>
+              </label>
               <input
                 id="email"
                 type="email"
-                autoComplete="email"
                 required
+                autoComplete="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Email"
+                placeholder="you@example.com"
+                className="input input-bordered"
               />
             </div>
-            <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+            <div className="form-control">
+              <label className="label" htmlFor="password">
+                <span className="label-text">Password</span>
+              </label>
               <input
                 id="password"
                 type="password"
-                autoComplete="current-password"
                 required
+                autoComplete="current-password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Password"
+                placeholder="••••••••"
+                className="input input-bordered"
               />
+              <label className="label">
+                <a href="#" className="label-text-alt link link-hover">Lupa password?</a>
+              </label>
             </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <span className="ml-2 text-sm text-gray-600">Ingat saya</span>
-            </label>
-            <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">Lupa password?</a>
-          </div>
-          <button
-            type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            Masuk
-          </button>
-        </form>
-        {message && <p className="text-center text-gray-700">{message}</p>}
-        <p className="text-sm text-gray-500 text-center">
-          Belum punya akun?{' '}
-          <a className="text-indigo-600 hover:underline" href="/register">
-            Daftar
-          </a>
-        </p>
+            <div className="form-control mt-6">
+              <button type="submit" className="btn btn-primary">Masuk</button>
+            </div>
+            {message && <p className="text-center text-gray-700 mt-2">{message}</p>}
+            <p className="text-sm text-gray-500 text-center mt-2">
+              Belum punya akun?{' '}
+              <a className="link link-primary" href="/register">
+                Daftar
+              </a>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
-  }
+}
