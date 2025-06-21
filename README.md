@@ -6,7 +6,14 @@ This project provides a very small web interface for the [CAT Psikologi Backend]
 
 This project requires **Node.js 18** or newer.
 
-Install dependencies and run the development server. Copy `.env.example` to `.env` and adjust the variables if needed:
+Install dependencies and run the development server. Copy `.env.example` to `.env` and adjust the variables if needed. The example file defines
+the following environment variables:
+
+- `API_URL` – base URL of the backend API
+- `PORT` – port for the Express server
+- `DATA_FILE` – path to the questions JSON file
+
+Run the development server with:
 
 ```bash
 npm install
