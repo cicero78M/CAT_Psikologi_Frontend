@@ -21,27 +21,30 @@ export default function Home() {
     }
   }
 
-  return (
-    <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">CAT Psikologi</h1>
-      <form onSubmit={login} className="space-y-2">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          className="w-full p-2 border rounded"
-        />
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Login</button>
-      </form>
-      {message && <p className="mt-2 text-center">{message}</p>}
-    </div>
-  );
-}
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200">
+        <div className="p-6 bg-white rounded-lg shadow max-w-md w-full">
+          <h1 className="text-3xl font-bold text-center mb-1">CAT Psikologi</h1>
+          <p className="text-center text-sm text-gray-500 mb-4">Supported by Cicero Devs</p>
+          <form onSubmit={login} className="space-y-3">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className="w-full p-2 border rounded"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className="w-full p-2 border rounded"
+            />
+            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Login</button>
+          </form>
+          {message && <p className="mt-2 text-center">{message}</p>}
+        </div>
+      </div>
+    );
+  }
